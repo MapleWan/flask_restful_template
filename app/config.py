@@ -30,6 +30,7 @@ class Config(object):
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1) # 1小时
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30) # 30天
     JWT_BLOCKLIST_TOKEN_CHECKS = ['access'] # 检查类型
+    # JWT_HEADER_NAME = 'x-user-token'  # 自定义token头部 ，flask_jwt_extended 会自动从 x-user-token 请求头中获取 token，无需修改各个接口的装饰器和验证逻辑。
 
 class DevelopmentConfig(Config):
     DEBUG = True
