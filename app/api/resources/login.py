@@ -19,6 +19,53 @@ def generate_tokens(id):
 
 class Login(Resource):
     def post(self):
+        """
+        用户登录接口
+        ---
+        tags:
+          - 用户相关
+        parameters:
+          - name: body
+            in: body
+            required: true
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: 用户名
+                password:
+                  type: string
+                  description: 密码
+        responses:
+          200:
+            description: 登录成功
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                msg:
+                  type: string
+                data:
+                  type: object
+                  properties:
+                    access_token:
+                      type: string
+                    refresh_token:
+                      type: string
+                    exp:
+                      type: integer
+          400:
+            description: 用户不存在
+          401:
+            description: 密码错误
+          500:
+            description: 登录失败
+        """
         # 解析请求参数
         parser = reqparse.RequestParser()
         # 请求参数校验

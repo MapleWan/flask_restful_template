@@ -20,6 +20,7 @@ from .api.models.revoked_token import RevokedToken
 from .api.models.user import User
 from .api import api_blueprint
 from .manage import migrate
+from flasgger import Swagger
 
 def create_app(config_name):
     #初始化Flask项目
@@ -32,6 +33,9 @@ def create_app(config_name):
     migrate.init_app(app, db)
     # 注册蓝图
     app.register_blueprint(api_blueprint)
+
+    # 初始化Swagger
+    swagger = Swagger(app)
     # 初始化 JWT
     jwt = JWTManager(app)
     register_JWT_hooks(jwt)
