@@ -1,13 +1,21 @@
 import uuid
 
-from flask_restful import Resource, reqparse
+from flask_restx import Resource, reqparse
 from werkzeug.security import generate_password_hash
-
-from ..models.user import User
-from ..common.utils import res
-from ..schema.register_sha import register_args_valid
+from app.api import auth_ns
+from .auth_api_model import user_credentials
+from app.api.models.user import User
+from app.api.common.utils import res
+from app.api.schema.register_sha import register_args_valid
 
 class Register(Resource):
+    @auth_ns.expect(user_credentials)
+    @auth_ns.doc(description='用户注册接口',
+             responses={
+                 201: '注册成功',
+                 400: '用户名已存在',
+                 500: '服务器内部错误'
+             })
     def post(self):
         parser = reqparse.RequestParser()
         # parser.add_argument('username', type=str, location='json')

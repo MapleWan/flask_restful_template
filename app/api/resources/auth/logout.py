@@ -1,7 +1,7 @@
-from flask_restful import Resource
+from flask_restx import Resource
 from flask_jwt_extended import jwt_required, get_jwt
-from ..models.revoked_token import RevokedToken
-from ..common.utils import res
+from app.api.models.revoked_token import RevokedToken
+from app.api.common.utils import res
 
 class Logout(Resource):
     @jwt_required()
