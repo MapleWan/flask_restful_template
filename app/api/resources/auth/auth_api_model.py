@@ -1,6 +1,6 @@
 from app.api import auth_ns
 from flask_restx import fields
-# from app.api.common.utils import api_response
+from app.api.common.utils import api_response
 # 定义API模型
 # 用户注册/登录请求模型
 user_credentials = auth_ns.model('UserCredentials', {
@@ -22,7 +22,16 @@ login_response = auth_ns.model('LoginResponse', {
     'message': fields.String(description='响应消息'),
     'data': fields.Nested(login_response_data, description='登录响应数据')
 })
-# 登录响应模型(继承api_response)
+
+
+# 登录响应模型(继承api_response)  不能修改 data 字段
 # login_response = auth_ns.inherit('LoginResponse', api_response, {
 #     'data': fields.Nested(login_response_data, description='登录响应数据')
 # })
+
+# 使用 clone 方法复制 api_response，并修改 data 字段
+# login_response = auth_ns.clone('LoginResponse', api_response, {
+#     'data': fields.Nested(login_response_data, description='登录响应数据')
+# })
+# login_response = auth_ns.clone('LoginResponse', api_response)
+# login_response['data'] = fields.Nested(login_response_data, description='登录响应数据')

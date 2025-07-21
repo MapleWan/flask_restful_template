@@ -17,7 +17,6 @@ class UserService(Resource):
     def get(self):
         user_list = User.findAllUser()
         result = [user.dict() for user in user_list]
-        print(result)
         # return res(data=result, message='success', success=True, code=200)
         return {
             'success': True,
